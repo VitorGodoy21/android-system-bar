@@ -1,4 +1,4 @@
-package com.vfgodoy.android_system_bar.ui.orders
+package com.vfgodoy.android_system_bar.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.vfgodoy.android_system_bar.databinding.FragmentOrdersBinding
+import com.vfgodoy.android_system_bar.viewmodel.OrdersViewModel
 
 class OrdersFragment : Fragment() {
 

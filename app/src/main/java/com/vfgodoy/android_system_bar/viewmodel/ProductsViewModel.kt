@@ -1,13 +1,13 @@
-package com.vfgodoy.android_system_bar.ui.orders
+package com.vfgodoy.android_system_bar.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class OrdersViewModel : ViewModel() {
+class ProductsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is orders Fragment"
+        value = "This is products Fragment"
     }
     val text: LiveData<String> = _text
 }
