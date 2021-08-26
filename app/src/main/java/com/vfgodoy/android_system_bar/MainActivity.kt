@@ -1,4 +1,4 @@
-package com.example.android_system_bar
+package com.vfgodoy.android_system_bar
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,7 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.example.android_system_bar.databinding.ActivityMainBinding
+import com.vfgodoy.android_system_bar.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

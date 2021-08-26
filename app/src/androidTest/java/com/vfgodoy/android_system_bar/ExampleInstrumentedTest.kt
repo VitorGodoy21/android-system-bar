@@ -1,4 +1,4 @@
-package com.example.android_system_bar
+package com.vfgodoy.android_system_bar
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.android_system_bar", appContext.packageName)
+        assertEquals("com.vfgodoy.android_system_bar", appContext.packageName)
     }
 }

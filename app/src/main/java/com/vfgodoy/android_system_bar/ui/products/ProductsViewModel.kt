@@ -1,13 +1,13 @@
-package com.example.android_system_bar.ui.home
+package com.vfgodoy.android_system_bar.ui.products
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class ProductsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "This is products Fragment"
     }
     val text: LiveData<String> = _text
 }

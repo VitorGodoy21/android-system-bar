@@ -1,4 +1,4 @@
-package com.example.android_system_bar
+package com.vfgodoy.android_system_bar
 
 import org.junit.Test
 
