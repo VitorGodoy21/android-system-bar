@@ -7,19 +7,20 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.vfgodoy.android_system_bar.view.HomeFragment"
+        android:name="com.vfgodoy.android_system_bar.view.fragment.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_products"
-        android:name="com.vfgodoy.android_system_bar.view.ProductsFragment"
+        android:name="com.vfgodoy.android_system_bar.view.fragment.ProductsFragment"
         android:label="@string/menu_products"
         tools:layout="@layout/fragment_products" />
 
     <fragment
         android:id="@+id/nav_orders"
-        android:name="com.vfgodoy.android_system_bar.view.OrdersFragment"
+        android:name="com.vfgodoy.android_system_bar.view.fragment.OrdersFragment"
         android:label="@string/menu_orders"
         tools:layout="@layout/fragment_orders" />
+
 </navigation>

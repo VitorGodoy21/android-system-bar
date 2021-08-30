@@ -5,9 +5,17 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_logout">Sair da Conta</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_products">Produtos</string>
     <string name="menu_orders">Comanda</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="product">Produto</string>
+
+    <string name="error_generic">Ocorreu um erro inesperado. Verifique os dados e tente novamente.</string>
+    <string name="error_missing_login_values">Todos os campos são obrigatórios. Insira os dados e tente novamente.</string>
+    <string name="error_no_internet_connection">Rede indisponível. Verifique se está conectado à rede de dados e tente novamente.</string>
+    <string name="error_authentication">E-mail e/ou senha inválido. Verifique os valores e tente novamente.</string>
 </resources>

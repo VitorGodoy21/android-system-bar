@@ -1,4 +1,4 @@
-package com.vfgodoy.android_system_bar.view
+package com.vfgodoy.android_system_bar.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
