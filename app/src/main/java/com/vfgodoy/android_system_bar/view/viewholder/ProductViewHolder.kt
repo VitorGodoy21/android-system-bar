@@ -26,6 +26,7 @@ class ProductViewHolder(itemView: View, val listener: ProductListener) : Recycle
         this.mTextName.text = product.name
         this.mTextPrice.text = product.price.toString()
         Glide.with(itemView.context).asBitmap().load(product.imageUrl).into(mImageProduct)
+        this.mTextPrice.text = product.price.toString().toMoneyFormat()
 
         itemView.setOnClickListener{ listener.onListClick(product.id) }
 
