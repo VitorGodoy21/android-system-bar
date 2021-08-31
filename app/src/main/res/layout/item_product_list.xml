@@ -6,6 +6,15 @@
     android:layout_height="wrap_content">
 
 
+    <ProgressBar
+        android:id="@+id/pb_image_product"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_product"
+        app:layout_constraintEnd_toEndOf="@+id/iv_product"
+        app:layout_constraintStart_toStartOf="@+id/iv_product"
+        app:layout_constraintTop_toTopOf="@+id/iv_product" />
+
     <ImageView
         android:id="@+id/iv_product"
         android:layout_width="100dp"
