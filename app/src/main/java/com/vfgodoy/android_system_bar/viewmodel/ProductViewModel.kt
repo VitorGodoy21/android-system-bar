@@ -18,7 +18,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     var validation: LiveData<ValidationListener> = mValidation
 
     private val mList = MutableLiveData<List<ProductModel>>()
-    var list : LiveData<List<ProductModel>> = mList
+    var products : LiveData<List<ProductModel>> = mList
 
     fun all(){
         val listener = object : FirebaseListener<List<ProductModel>>{

@@ -11,7 +11,7 @@ import com.vfgodoy.android_system_bar.service.constants.Error.CODES.WRONG_PASSWO
 class Util {
     companion object{
 
-        fun makeToast(context : Context, message : String){
+        fun makeToast(context : Context?, message : String){
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
 
