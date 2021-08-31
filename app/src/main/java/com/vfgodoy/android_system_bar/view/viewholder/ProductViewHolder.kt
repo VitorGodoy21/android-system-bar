@@ -26,35 +26,40 @@ class ProductViewHolder(itemView: View, val listener: ProductListener) : Recycle
     fun bindData(product : ProductModel){
         this.mTextName.text = product.name
         this.mTextPrice.text = product.price.toString().toMoneyFormat()
-
         this.mProgressBar.visibility = View.VISIBLE
 
-        Glide.with(itemView.context).asBitmap().load(product.imageUrl).listener(object : RequestListener<Bitmap>{
-            override fun onLoadFailed(
-                e: GlideException?,
-                model: Any?,
-                target: Target<Bitmap>?,
-                isFirstResource: Boolean
-            ): Boolean {
-                mImageProduct.setPadding(40,40,40,40)
-                mImageProduct.setImageResource(R.drawable.ic_empty_image)
-                mProgressBar.visibility = View.INVISIBLE
-                return true
-            }
+        if(!product.imageUrl.isNullOrEmpty()){
+            Glide.with(itemView.context).asBitmap().load(product.imageUrl).listener(object : RequestListener<Bitmap>{
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    mImageProduct.setPadding(40,40,40,40)
+                    mImageProduct.setImageResource(R.drawable.ic_empty_image)
+                    mProgressBar.visibility = View.INVISIBLE
+                    return true
+                }
 
-            override fun onResourceReady(
-                resource: Bitmap?,
-                model: Any?,
-                target: Target<Bitmap>?,
-                dataSource: DataSource?,
-                isFirstResource: Boolean
-            ): Boolean {
-                mProgressBar.visibility = View.INVISIBLE
-                return false
-            }
+                override fun onResourceReady(
+                    resource: Bitmap?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    mImageProduct.setPadding(0,0,0,0)
+                    mProgressBar.visibility = View.INVISIBLE
+                    return false
+                }
 
-        }).into(mImageProduct)
-
+            }).into(mImageProduct)
+        }else{
+            mImageProduct.setPadding(40,40,40,40)
+            mImageProduct.setImageResource(R.drawable.ic_empty_image)
+            mProgressBar.visibility = View.INVISIBLE
+        }
 
         itemView.setOnClickListener{ listener.onListClick(product.id) }
     }
