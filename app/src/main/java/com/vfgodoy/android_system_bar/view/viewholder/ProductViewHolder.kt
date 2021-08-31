@@ -61,6 +61,6 @@ class ProductViewHolder(itemView: View, val listener: ProductListener) : Recycle
             mProgressBar.visibility = View.INVISIBLE
         }
 
-        itemView.setOnClickListener{ listener.onListClick(product.id) }
+        itemView.setOnClickListener{ listener.onListClick(product.id?:"") }
     }
 }

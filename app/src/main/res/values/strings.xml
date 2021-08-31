@@ -18,4 +18,8 @@
     <string name="error_missing_login_values">Todos os campos são obrigatórios. Insira os dados e tente novamente.</string>
     <string name="error_no_internet_connection">Rede indisponível. Verifique se está conectado à rede de dados e tente novamente.</string>
     <string name="error_authentication">E-mail e/ou senha inválido. Verifique os valores e tente novamente.</string>
+    <string name="error_missing_save_product_values">"Dados do produtos obrigatórios. Preencha os dados e tente novamente.</string>
+
+    <string name="product_save_with_success">Produto salvo com sucesso!</string>
+
 </resources>

@@ -1,20 +1,22 @@
 package com.vfgodoy.android_system_bar.service.repository
 
 import android.content.Context
+import android.net.Uri
 import com.google.firebase.firestore.*
 import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.service.constants.Product
 import com.vfgodoy.android_system_bar.service.listener.FirebaseListener
 import com.vfgodoy.android_system_bar.service.listener.ValidationListener
 import com.vfgodoy.android_system_bar.service.model.ProductModel
+import com.vfgodoy.android_system_bar.service.model.ProductModelRequest
 import com.vfgodoy.android_system_bar.service.repository.remote.FirebaseStorage
 import com.vfgodoy.android_system_bar.service.repository.remote.FirestoreDatabaseClient
 import com.vfgodoy.android_system_bar.util.Util
 
 class ProductRepository(val context: Context) : BaseRepository() {
 
-    private val mReference = FirestoreDatabaseClient.createFirebaseReference(Product.TABLE.NAME)
-    private val mStorage = FirebaseStorage.storage()
+    private val mCollectionReference = FirestoreDatabaseClient.createFirebaseReference(Product.TABLE.NAME)
+    private val mStorageReference = FirebaseStorage.storageReference()
 
     fun getAllProducts(listener : FirebaseListener<List<ProductModel>>){
 
@@ -23,7 +25,7 @@ class ProductRepository(val context: Context) : BaseRepository() {
             return
         }
 
-        mReference!!.addSnapshotListener{ documents, error ->
+        mCollectionReference!!.addSnapshotListener{ documents, error ->
             if(error != null){
                listener.onFailure(error.message.toString())
             }else if(documents != null){
@@ -31,6 +33,40 @@ class ProductRepository(val context: Context) : BaseRepository() {
             }else{
                 listener.onFailure("Empty Table")
             }
+        }
+    }
+
+    fun save(product : ProductModel, listener: FirebaseListener<Boolean>){
+
+        if(product.imageUri != null){
+            var url = ""
+            val reference = mStorageReference?.child("${Product.FOLDER.NAME}${product.name}")
+            var uploadTask = reference?.putFile(product.imageUri!!)
+            uploadTask?.continueWithTask {
+                if (!it.isSuccessful) {
+                    it.exception?.let {
+                        throw it!!
+                    }
+                }
+                reference?.downloadUrl
+            }?.addOnFailureListener {
+                listener.onFailure(it.message.toString())
+            }?.addOnSuccessListener {
+                url = it.toString()
+                val product = ProductModelRequest(product.name, product.price, url)
+                saveProductOnFirestore(product, listener)
+            }
+        }else{
+            val product = ProductModelRequest(product.name, product.price, "")
+            saveProductOnFirestore(product, listener)
+        }
+    }
+
+    private fun saveProductOnFirestore(product : ProductModelRequest, listener : FirebaseListener<Boolean>){
+        mCollectionReference?.document()?.set(product)?.addOnSuccessListener {
+            listener.onSuccess(true)
+        }?.addOnFailureListener{
+            listener.onFailure(it.message.toString())
         }
     }
 

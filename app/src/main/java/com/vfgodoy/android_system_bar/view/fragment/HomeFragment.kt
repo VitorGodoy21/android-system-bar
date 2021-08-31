@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.vfgodoy.android_system_bar.databinding.FragmentHomeBinding
-import com.vfgodoy.android_system_bar.view.activity.ProductActivity
+import com.vfgodoy.android_system_bar.view.activity.ProductFormActivity
 import com.vfgodoy.android_system_bar.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment(), View.OnClickListener {
@@ -46,7 +46,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             binding.btAddProduct.id -> {
-                startActivity(Intent(context, ProductActivity::class.java))
+                startActivity(Intent(context, ProductFormActivity::class.java))
             }
         }
     }

@@ -6,6 +6,10 @@ class Product private constructor() {
         const val NAME = "product"
     }
 
+    object FOLDER{
+        const val NAME = "products/"
+    }
+
 
 
 }

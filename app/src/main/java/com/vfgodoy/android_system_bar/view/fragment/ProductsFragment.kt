@@ -55,6 +55,7 @@ class ProductsFragment : Fragment() {
 
         observer()
         mProductViewModel.all()
+        mAdapter.attachListener(mListener)
 
         return root
     }
