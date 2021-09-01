@@ -5,7 +5,7 @@ import com.google.firebase.firestore.DocumentId
 
 class ProductModel(
     @DocumentId
-    val id: String? = null,
+    val id: String = "",
     val name : String? = null,
     val price : Float? = null,
     val imageUri : Uri? = null,
