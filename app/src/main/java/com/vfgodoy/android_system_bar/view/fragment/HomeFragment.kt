@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.databinding.FragmentHomeBinding
+import com.vfgodoy.android_system_bar.view.activity.FloatingActionButtonController
 import com.vfgodoy.android_system_bar.view.activity.ProductFormActivity
 import com.vfgodoy.android_system_bar.viewmodel.HomeViewModel
 
-class HomeFragment : Fragment(), View.OnClickListener {
+class HomeFragment : BaseFragment(), View.OnClickListener {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
@@ -34,6 +36,15 @@ class HomeFragment : Fragment(), View.OnClickListener {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        setFabImageResource(R.drawable.ic_fab_add)
+        setFabVisibility(View.INVISIBLE)
+        setFabAction {
+            //No Action
+        }
+    }
+
     private fun setListeners() {
         binding.btAddProduct.setOnClickListener(this)
     }
@@ -41,6 +52,19 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun setFabImageResource(resourceId: Int) {
+
+        (activity as FloatingActionButtonController?)?.setFabImageResource(resourceId)
+    }
+
+    override fun setFabAction(listener: (View) -> Unit) {
+        (activity as FloatingActionButtonController?)?.setFabAction(listener)
+    }
+
+    override fun setFabVisibility(visibility: Int) {
+        (activity as FloatingActionButtonController?)?.setFabVisibility(visibility)
     }
 
     override fun onClick(v: View?) {

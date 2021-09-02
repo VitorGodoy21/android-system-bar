@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +17,10 @@ import com.vfgodoy.android_system_bar.util.Util
 import com.vfgodoy.android_system_bar.view.activity.ProductFormActivity
 import com.vfgodoy.android_system_bar.view.adapter.ProductAdapter
 import com.vfgodoy.android_system_bar.viewmodel.ProductViewModel
+import com.vfgodoy.android_system_bar.view.activity.FloatingActionButtonController
 
-class ProductsFragment : Fragment() {
+
+class ProductsFragment : BaseFragment() {
 
     private lateinit var mProductViewModel: ProductViewModel
     private var _binding: FragmentProductsBinding? = null
@@ -76,19 +77,34 @@ class ProductsFragment : Fragment() {
                 Util.makeToast(context, it.failure())
             }
         })
-
-
     }
 
     override fun onResume() {
         super.onResume()
         mAdapter.attachListener(mListener)
         mProductViewModel.all()
+        setFabImageResource(R.drawable.ic_fab_add)
+        setFabVisibility(View.VISIBLE)
+        setFabAction {
+            startActivity(Intent(activity, ProductFormActivity::class.java))
+        }
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun setFabImageResource(resourceId: Int) {
+        (activity as FloatingActionButtonController?)?.setFabImageResource(resourceId)
+    }
+
+    override fun setFabAction(listener: (View) -> Unit) {
+        (activity as FloatingActionButtonController?)?.setFabAction(listener)
+    }
+
+    override fun setFabVisibility(visibility: Int) {
+        (activity as FloatingActionButtonController?)?.setFabVisibility(visibility)
     }
 }

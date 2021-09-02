@@ -27,6 +27,9 @@ class ProductFormActivity : AppCompatActivity(), View.OnClickListener {
     private var urlImage : String = ""
     private var mProductId = ""
 
+    //TODO: SHOW BACK BUTTON
+    //TODO: MASK TO PRICE INPUT
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
