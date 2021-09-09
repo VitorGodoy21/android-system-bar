@@ -15,6 +15,8 @@ import com.vfgodoy.android_system_bar.viewmodel.HomeViewModel
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
 
+    //TODO: BOTÕES DE INICIAR/ENCERRAR O DIA - AO FIM GERAR 'RELATÓRIO DO DIA'
+
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
 

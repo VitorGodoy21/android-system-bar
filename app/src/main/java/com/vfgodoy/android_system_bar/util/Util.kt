@@ -5,8 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.widget.Toast
-import com.vfgodoy.android_system_bar.R
-import com.vfgodoy.android_system_bar.service.constants.Error.CODES.WRONG_PASSWORD
 
 class Util {
     companion object{
@@ -29,7 +27,7 @@ class Util {
                         return false
                     }
                 } else {
-                    //TODO: RESOLVE DEPRECATED
+                    //TODO: RESOLVER DEPRECATED
                     val info = connection.activeNetworkInfo
                     return info != null && info.isConnected
                 }
