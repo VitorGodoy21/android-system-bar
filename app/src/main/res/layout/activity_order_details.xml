@@ -49,4 +49,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_order_number_title" />
 
+    <Button
+        android:id="@+id/bt_add_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Adicionar Produto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_order_description" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_order_products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_product_list"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_add_product" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

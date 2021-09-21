@@ -6,7 +6,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.databinding.ActivityOrderFormBinding
-import com.vfgodoy.android_system_bar.service.model.OrderModel
+import com.vfgodoy.android_system_bar.service.model.request.OrderModelRequest
 import com.vfgodoy.android_system_bar.util.Util
 import com.vfgodoy.android_system_bar.viewmodel.OrderViewModel
 
@@ -49,7 +49,7 @@ class OrderFormActivity : AppCompatActivity(), View.OnClickListener {
         val number : String = binding.etNumber.text.toString()
         val description : String = binding.etDescription.text.toString()
 
-        val order = OrderModel.createStarterOrder(number.toIntOrNull(), description)
+        val order = OrderModelRequest.createStarterOrder(number.toIntOrNull(), description)
         mOrderViewModel.saveStarter(order)
     }
 }

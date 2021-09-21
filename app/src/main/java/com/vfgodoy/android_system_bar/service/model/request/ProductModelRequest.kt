@@ -1,4 +1,4 @@
-package com.vfgodoy.android_system_bar.service.model
+package com.vfgodoy.android_system_bar.service.model.request
 
 import com.google.firebase.firestore.DocumentId
 

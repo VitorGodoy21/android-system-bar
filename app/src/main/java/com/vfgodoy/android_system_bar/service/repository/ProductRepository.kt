@@ -5,7 +5,7 @@ import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.service.constants.ProductConstants
 import com.vfgodoy.android_system_bar.service.listener.FirebaseListener
 import com.vfgodoy.android_system_bar.service.model.ProductModel
-import com.vfgodoy.android_system_bar.service.model.ProductModelRequest
+import com.vfgodoy.android_system_bar.service.model.request.ProductModelRequest
 import com.vfgodoy.android_system_bar.service.repository.remote.FirebaseStorage
 import com.vfgodoy.android_system_bar.service.repository.remote.FirestoreDatabaseClient
 import com.vfgodoy.android_system_bar.util.Util

@@ -5,14 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.service.listener.OrderListener
-import com.vfgodoy.android_system_bar.service.listener.ProductListener
-import com.vfgodoy.android_system_bar.service.model.OrderModel
-import com.vfgodoy.android_system_bar.service.model.ProductModel
+import com.vfgodoy.android_system_bar.service.model.request.OrderModelRequest
 import com.vfgodoy.android_system_bar.view.viewholder.OrderViewHolder
 
 class OrderAdapter : RecyclerView.Adapter<OrderViewHolder>() {
 
-    private var mList : List<OrderModel> = arrayListOf()
+    private var mList : List<OrderModelRequest> = arrayListOf()
     private lateinit var mListener: OrderListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
@@ -32,7 +30,7 @@ class OrderAdapter : RecyclerView.Adapter<OrderViewHolder>() {
         mListener = listener
     }
 
-    fun updateList(list : List<OrderModel>){
+    fun updateList(list : List<OrderModelRequest>){
         mList = list
         notifyDataSetChanged()
     }
