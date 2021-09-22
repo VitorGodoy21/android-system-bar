@@ -11,15 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.databinding.FragmentOrdersBinding
 import com.vfgodoy.android_system_bar.service.constants.OrderConstants
-import com.vfgodoy.android_system_bar.service.constants.ProductConstants
 import com.vfgodoy.android_system_bar.service.listener.OrderListener
 import com.vfgodoy.android_system_bar.util.Util
-import com.vfgodoy.android_system_bar.view.CustomDialogClass
 import com.vfgodoy.android_system_bar.view.activity.FloatingActionButtonController
 import com.vfgodoy.android_system_bar.view.activity.OrderDetailsActivity
-import com.vfgodoy.android_system_bar.view.activity.OrderFormActivity
-import com.vfgodoy.android_system_bar.view.activity.ProductFormActivity
 import com.vfgodoy.android_system_bar.view.adapter.OrderAdapter
+import com.vfgodoy.android_system_bar.view.dialog.FormOrderDialog
 import com.vfgodoy.android_system_bar.viewmodel.OrderViewModel
 
 class OrdersFragment : BaseFragment() {
@@ -89,8 +86,7 @@ class OrdersFragment : BaseFragment() {
         setFabImageResource(R.drawable.ic_fab_add)
         setFabVisibility(View.VISIBLE)
         setFabAction {
-            //TODO: CHAMAR O FORM EM FORMA DE DIALOG
-            startActivity(Intent(activity, OrderFormActivity::class.java))
+            FormOrderDialog().show(parentFragmentManager, "NewOrderDialog")
         }
     }
 

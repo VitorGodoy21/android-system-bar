@@ -9,7 +9,7 @@ import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.service.listener.FirebaseListener
 import com.vfgodoy.android_system_bar.service.listener.ValidationListener
 import com.vfgodoy.android_system_bar.service.model.ProductModel
-import com.vfgodoy.android_system_bar.service.model.ProductModelRequest
+import com.vfgodoy.android_system_bar.service.model.request.ProductModelRequest
 import com.vfgodoy.android_system_bar.service.repository.ProductRepository
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {

@@ -19,7 +19,7 @@ import com.vfgodoy.android_system_bar.service.model.ProductModel
 import com.vfgodoy.android_system_bar.util.Util
 import com.vfgodoy.android_system_bar.viewmodel.ProductViewModel
 
-class ProductFormActivity : AppCompatActivity(), View.OnClickListener {
+class FormProductActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mProductViewModel: ProductViewModel
     private lateinit var binding: ActivityFormProductBinding

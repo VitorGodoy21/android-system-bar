@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.databinding.FragmentHomeBinding
 import com.vfgodoy.android_system_bar.view.activity.FloatingActionButtonController
-import com.vfgodoy.android_system_bar.view.activity.ProductFormActivity
+import com.vfgodoy.android_system_bar.view.activity.FormProductActivity
 import com.vfgodoy.android_system_bar.viewmodel.HomeViewModel
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
@@ -72,7 +71,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             binding.btAddProduct.id -> {
-                startActivity(Intent(context, ProductFormActivity::class.java))
+                startActivity(Intent(context, FormProductActivity::class.java))
             }
         }
     }

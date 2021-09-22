@@ -15,14 +15,11 @@
             android:name=".view.activity.OrderDetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".view.activity.OrderFormActivity"
-            android:exported="true" />
-        <activity
             android:name=".view.activity.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Androidsystembar.NoActionBar" />
         <activity
-            android:name=".view.activity.ProductFormActivity"
+            android:name=".view.activity.FormProductActivity"
             android:exported="true" />
         <activity
             android:name=".view.activity.LoginActivity"
