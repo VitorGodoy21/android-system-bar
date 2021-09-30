@@ -15,7 +15,7 @@ class CustomDialogClass(context: Context) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_order_form)
+        setContentView(R.layout.dialog_order_form)
 
     }
 }

@@ -86,7 +86,7 @@ class OrdersFragment : BaseFragment() {
         setFabImageResource(R.drawable.ic_fab_add)
         setFabVisibility(View.VISIBLE)
         setFabAction {
-            FormOrderDialog().show(parentFragmentManager, "NewOrderDialog")
+            FormOrderDialog().show(parentFragmentManager, "FormOrderDialog")
         }
     }
 

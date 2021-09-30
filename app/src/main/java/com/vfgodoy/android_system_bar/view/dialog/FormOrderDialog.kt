@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -26,7 +25,7 @@ class FormOrderDialog : DialogFragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.activity_order_form, container)
+        val rootView = inflater.inflate(R.layout.dialog_order_form, container)
 
         mOrderViewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
 

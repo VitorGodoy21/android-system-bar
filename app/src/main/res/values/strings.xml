@@ -32,5 +32,6 @@
     <string name="order">Comanda</string>
     <string name="error_missing_save_order_starter_values">"Dados da comanda obrigatórios. Preencha os dados e tente novamente.</string>
     <string name="order_starter_save_with_success">Comanda criada com sucesso!</string>
+    <string name="search_product_hint">Pesquise o produto</string>
 
 </resources>

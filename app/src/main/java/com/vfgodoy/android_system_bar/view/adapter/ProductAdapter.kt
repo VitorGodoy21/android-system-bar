@@ -12,6 +12,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
 
     private var mList : List<ProductModel> = arrayListOf()
     private lateinit var mListener: ProductListener
+    private var allList : List<ProductModel> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.item_product_list, parent, false)
@@ -31,7 +32,19 @@ class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
     }
 
     fun updateList(list : List<ProductModel>){
+        allList = list
         mList = list
+        notifyDataSetChanged()
+    }
+
+    fun filter(term : String){
+        if(term.isEmpty()){
+            mList = allList
+        }else{
+            mList =  allList.filter { product ->
+                product.name?.uppercase()?.contains(term.uppercase()) == true }
+        }
+
         notifyDataSetChanged()
     }
 }

@@ -1,6 +1,7 @@
 package com.vfgodoy.android_system_bar.view.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,9 +16,11 @@ import com.vfgodoy.android_system_bar.service.model.OrderModel
 import com.vfgodoy.android_system_bar.service.model.OrderProductModel
 import com.vfgodoy.android_system_bar.util.Util
 import com.vfgodoy.android_system_bar.view.adapter.ProductOrderAdapter
+import com.vfgodoy.android_system_bar.view.dialog.AddOrderProductDialog
+import com.vfgodoy.android_system_bar.view.dialog.FormOrderDialog
 import com.vfgodoy.android_system_bar.viewmodel.OrderViewModel
 
-class OrderDetailsActivity : AppCompatActivity() {
+class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityOrderDetailsBinding
     private var mOrderId = ""
@@ -31,7 +34,6 @@ class OrderDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         mOrderViewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
-
         binding = ActivityOrderDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -58,6 +60,7 @@ class OrderDetailsActivity : AppCompatActivity() {
         }
 
         observers()
+        setListeners()
         loadDataFromActivity()
         mAdapter.attachListener(mListener)
     }
@@ -76,6 +79,10 @@ class OrderDetailsActivity : AppCompatActivity() {
         })
     }
 
+    private fun setListeners(){
+        binding.btAddProduct.setOnClickListener(this)
+    }
+
     private fun loadDataFromActivity(){
         val bundle = intent.extras
         if(bundle != null){
@@ -87,6 +94,12 @@ class OrderDetailsActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         mAdapter.attachListener(mListener)
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            binding.btAddProduct.id -> { AddOrderProductDialog().show(this.supportFragmentManager, "AddOrderProduct") }
+        }
     }
 
 }
