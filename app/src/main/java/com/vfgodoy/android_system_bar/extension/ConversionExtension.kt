@@ -22,9 +22,13 @@ fun OrderModel.toRequest(): OrderModelRequest {
 }
 
 fun ProductModel.toRequest() : ProductModelRequest{
-    return ProductModelRequest(this.id, this.price, this.imageUrl)
+    return ProductModelRequest(this.id,this.name, this.price, this.imageUrl)
 }
 
 fun OrderProductModel.toRequest() : OrderProductModelRequest{
     return OrderProductModelRequest(this.id, this.product?.id?:"", this.amount)
+}
+
+fun ProductModelRequest.toModel() : ProductModel {
+    return ProductModel(this.id, this.name, this.price, null, this.imageUrl)
 }

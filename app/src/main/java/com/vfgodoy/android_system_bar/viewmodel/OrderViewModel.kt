@@ -2,8 +2,10 @@ package com.vfgodoy.android_system_bar.viewmodel
 
 import android.app.Application
 import android.content.Context
+import android.os.Build
 import androidx.lifecycle.*
 import com.vfgodoy.android_system_bar.R
+import com.vfgodoy.android_system_bar.extension.toModel
 import com.vfgodoy.android_system_bar.extension.toRequest
 import com.vfgodoy.android_system_bar.service.listener.FirebaseListener
 import com.vfgodoy.android_system_bar.service.listener.ValidationListener
@@ -79,44 +81,59 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
                 val productsModel: MutableList<OrderProductModel> = arrayListOf()
                 model?.let { orderModelRequest ->
                     orderModelRequest.products?.let { list ->
-                        val productsSize = list.size - 1
-                        for (i in 0..productsSize) {
-                            val productRequest = list[i]
-                            mProductRepository.get(
-                                productRequest.productId,
-                                object : FirebaseListener<ProductModelRequest?> {
-                                    override fun onSuccess(model: ProductModelRequest?) {
 
-                                        model?.let {
-                                            val productModel = ProductModel(
-                                                productRequest.productId,
-                                                it.name ?: "",
-                                                it.price,
-                                                null,
-                                                it.imageUrl ?: ""
-                                            )
-                                            val productOrderModel = OrderProductModel(
-                                                id,
-                                                productModel,
-                                                productRequest.amount ?: 0
-                                            )
-                                            productsModel.add(productOrderModel)
+                        if(list.isEmpty()){
+                            val order = OrderModel(
+                                orderModelRequest.id,
+                                orderModelRequest.description,
+                                orderModelRequest.date,
+                                orderModelRequest.number,
+                                orderModelRequest.total,
+                                null
+                                )
+                                mLoadOrder.value = order
+                        }else{
+                            val productsSize = list.size - 1
+                            for (i in 0..productsSize) {
+                                val productRequest = list[i]
+                                mProductRepository.get(
+                                    productRequest.productId,
+                                    object : FirebaseListener<ProductModelRequest?> {
+                                        override fun onSuccess(model: ProductModelRequest?) {
 
-                                            if (i == productsSize) {
-                                                finish.postValue(productsModel)
+                                            model?.let {
+                                                val productModel = ProductModel(
+                                                    productRequest.productId,
+                                                    it.name ?: "",
+                                                    it.price,
+                                                    null,
+                                                    it.imageUrl ?: ""
+                                                )
+                                                val productOrderModel = OrderProductModel(
+                                                    id,
+                                                    productModel,
+                                                    productRequest.amount ?: 0
+                                                )
+                                                productsModel.add(productOrderModel)
 
+                                                if (i == productsSize) {
+                                                    finish.postValue(productsModel)
+
+                                                }
                                             }
+
                                         }
 
-                                    }
+                                        override fun onFailure(str: String) {
+                                            mValidation.value = ValidationListener(str)
+                                            finishObserver?.let { finish.removeObserver(it) }
+                                        }
 
-                                    override fun onFailure(str: String) {
-                                        mValidation.value = ValidationListener(str)
-                                        finishObserver?.let { finish.removeObserver(it) }
-                                    }
-
-                                })
+                                    })
+                            }
                         }
+
+
                     }
                 }
 
@@ -146,10 +163,22 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
         })
     }
 
-    fun onAmountChanged(productOrderModel : OrderProductModel, order : OrderModel?, amount:Int, listener : FirebaseListener<Boolean>){
+    fun onAmountChanged(productOrderModel : OrderProductModel, order : OrderModel?, amount:Int, listener : FirebaseListener<OrderModel>){
         updateProductOrder(productOrderModel, order)?.apply {
-            mOrderRepository.onChangeProductAmount(this.toRequest(), listener)
+            mOrderRepository.onChangeProduct(this, listener)
         }
+    }
+
+    fun onAddProduct(productModelRequest : ProductModelRequest?, order : OrderModel?, listener : FirebaseListener<OrderModel>){
+
+        productModelRequest?.let {
+            val productModel = it.toModel()
+            val orderProductModel = OrderProductModel(it.id, productModel, 1)
+            updateProductOrder(orderProductModel, order)?.apply {
+                mOrderRepository.onChangeProduct(this, listener )
+            }
+        }
+
     }
 
     fun updateProductOrder(productOrderModel : OrderProductModel, order : OrderModel?) : OrderModel?{
@@ -157,14 +186,18 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
         order?.let{
             var orderModel = it
             var productList :  MutableList<OrderProductModel> = arrayListOf()
-            orderModel.products?.let{
-                it.forEach{ orderProduct ->
-                    if(orderProduct.product?.id == productOrderModel.id){
-                        productList.add(productOrderModel)
-                    }else{
-                        productList.add(orderProduct)
-                    }
+            orderModel.products?.let{ products ->
+
+                val filteredProducts : List<OrderProductModel> = products.filter { it.product?.id == productOrderModel.product?.id }
+                if(filteredProducts.isNotEmpty()){
+                    productList = products.toMutableList()
+                    productList.removeAll { it.product?.id == productOrderModel.product?.id }
+                    productList.add(filteredProducts[0])
+                }else{
+                    productList = products.toMutableList()
+                    productList.add(productOrderModel)
                 }
+
             }
 
             orderModel.products = productList

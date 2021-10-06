@@ -82,6 +82,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     fun load(id:String){
         mProductRepository.get(id, object : FirebaseListener<ProductModelRequest?>{
             override fun onSuccess(model: ProductModelRequest?) {
+                model?.id = id
                 mLoadProduct.value = model
             }
 

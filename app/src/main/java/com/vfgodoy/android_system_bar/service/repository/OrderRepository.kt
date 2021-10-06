@@ -2,8 +2,10 @@ package com.vfgodoy.android_system_bar.service.repository
 
 import android.content.Context
 import com.vfgodoy.android_system_bar.R
+import com.vfgodoy.android_system_bar.extension.toRequest
 import com.vfgodoy.android_system_bar.service.constants.OrderConstants
 import com.vfgodoy.android_system_bar.service.listener.FirebaseListener
+import com.vfgodoy.android_system_bar.service.model.OrderModel
 import com.vfgodoy.android_system_bar.service.model.OrderProductModel
 import com.vfgodoy.android_system_bar.service.model.request.OrderModelRequest
 import com.vfgodoy.android_system_bar.service.model.request.OrderProductModelRequest
@@ -54,9 +56,10 @@ class OrderRepository(val context: Context) : BaseRepository(){
         }
     }
 
-    fun onChangeProductAmount(order : OrderModelRequest, listener : FirebaseListener<Boolean>){
-        mCollectionReference?.document(order.id)?.set(order)?.addOnSuccessListener {
-            listener.onSuccess(true)
+    fun onChangeProduct(order : OrderModel, listener : FirebaseListener<OrderModel>){
+        val orderRequest : OrderModelRequest = order.toRequest()
+        mCollectionReference?.document(orderRequest.id)?.set(orderRequest)?.addOnSuccessListener {
+            listener.onSuccess(order)
         }?.addOnFailureListener{
             listener.onFailure(it.message.toString())
         }

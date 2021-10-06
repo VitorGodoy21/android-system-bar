@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +27,9 @@ class AddOrderProductDialog : DialogFragment() {
     private var _binding: DialogAddOrderProductDialogBinding? = null
     private val binding get() = _binding!!
 
+    private val mProductSelected = MutableLiveData<String>()
+    var productSelected : LiveData<String> = mProductSelected
+
     private lateinit var mListener: ProductListener
     private val mAdapter = ProductAdapter()
 
@@ -39,7 +44,6 @@ class AddOrderProductDialog : DialogFragment() {
 
         _binding = DialogAddOrderProductDialogBinding.inflate(inflater, container, false)
 
-
         val root = binding.root
 
         binding.rvProducts.apply {
@@ -49,7 +53,8 @@ class AddOrderProductDialog : DialogFragment() {
 
         mListener = object : ProductListener {
             override fun onListClick(id: String) {
-                Util.makeToast(context, id)
+                mProductSelected.value = id
+                dismiss()
             }
 
         }

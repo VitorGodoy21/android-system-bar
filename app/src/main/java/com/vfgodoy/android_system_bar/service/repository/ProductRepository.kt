@@ -52,11 +52,11 @@ class ProductRepository(val context: Context) : BaseRepository() {
                 listener.onFailure(it.message.toString())
             }?.addOnSuccessListener {
                 url = it.toString()
-                val product = ProductModelRequest(product.name, product.price, url)
+                val product = ProductModelRequest(String() ,product.name, product.price, url)
                 createProductOnFirestore(product, listener)
             }
         }else{
-            val product = ProductModelRequest(product.name, product.price, "")
+            val product = ProductModelRequest(String() ,product.name, product.price, "")
             createProductOnFirestore(product, listener)
         }
     }
@@ -78,11 +78,11 @@ class ProductRepository(val context: Context) : BaseRepository() {
                 listener.onFailure(it.message.toString())
             }?.addOnSuccessListener {
                 url = it.toString()
-                val request = ProductModelRequest(product.name, product.price, url)
+                val request = ProductModelRequest(product.id, product.name, product.price, url)
                 updateProductOnFirestore(product.id, request, listener)
             }
         }else{
-            val request = ProductModelRequest(product.name, product.price, "")
+            val request = ProductModelRequest(product.id, product.name, product.price, "")
             updateProductOnFirestore(product.id, request, listener)
         }
     }
