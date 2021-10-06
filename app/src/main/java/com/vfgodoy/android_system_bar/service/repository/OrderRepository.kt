@@ -31,13 +31,13 @@ class OrderRepository(val context: Context) : BaseRepository(){
             return
         }
 
-        mCollectionReference!!.addSnapshotListener{ documents, error ->
+        mCollectionReference!!.orderBy(OrderConstants.TABLE.NUMBER).addSnapshotListener{ documents, error ->
             if(error != null){
                 listener.onFailure(error.message.toString())
             }else if(documents != null){
                 listener.onSuccess(documents.toObjects(OrderModelRequest::class.java))
             }else{
-                listener.onFailure("Empty Table")
+                listener.onFailure(OrderConstants.ERROR.EMPTY_TABLE)
             }
 
         }
