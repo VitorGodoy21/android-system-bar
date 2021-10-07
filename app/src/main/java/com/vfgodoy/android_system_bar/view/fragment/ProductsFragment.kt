@@ -14,7 +14,7 @@ import com.vfgodoy.android_system_bar.databinding.FragmentProductsBinding
 import com.vfgodoy.android_system_bar.service.constants.ProductConstants
 import com.vfgodoy.android_system_bar.service.listener.ProductListener
 import com.vfgodoy.android_system_bar.util.Util
-import com.vfgodoy.android_system_bar.view.activity.ProductFormActivity
+import com.vfgodoy.android_system_bar.view.activity.FormProductActivity
 import com.vfgodoy.android_system_bar.view.adapter.ProductAdapter
 import com.vfgodoy.android_system_bar.viewmodel.ProductViewModel
 import com.vfgodoy.android_system_bar.view.activity.FloatingActionButtonController
@@ -50,7 +50,7 @@ class ProductsFragment : BaseFragment() {
 
         mListener = object : ProductListener{
             override fun onListClick(id: String) {
-                val intent = Intent(context, ProductFormActivity::class.java)
+                val intent = Intent(context, FormProductActivity::class.java)
                 val bundle = Bundle()
                 bundle.putString(ProductConstants.BUNDLE.PRODUCTID, id)
                 intent.putExtras(bundle)
@@ -86,7 +86,7 @@ class ProductsFragment : BaseFragment() {
         setFabImageResource(R.drawable.ic_fab_add)
         setFabVisibility(View.VISIBLE)
         setFabAction {
-            startActivity(Intent(activity, ProductFormActivity::class.java))
+            startActivity(Intent(activity, FormProductActivity::class.java))
         }
     }
 

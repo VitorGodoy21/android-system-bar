@@ -5,7 +5,7 @@ import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.service.constants.ProductConstants
 import com.vfgodoy.android_system_bar.service.listener.FirebaseListener
 import com.vfgodoy.android_system_bar.service.model.ProductModel
-import com.vfgodoy.android_system_bar.service.model.ProductModelRequest
+import com.vfgodoy.android_system_bar.service.model.request.ProductModelRequest
 import com.vfgodoy.android_system_bar.service.repository.remote.FirebaseStorage
 import com.vfgodoy.android_system_bar.service.repository.remote.FirestoreDatabaseClient
 import com.vfgodoy.android_system_bar.util.Util
@@ -15,7 +15,7 @@ class ProductRepository(val context: Context) : BaseRepository() {
     private val mCollectionReference = FirestoreDatabaseClient.createFirebaseReference(ProductConstants.TABLE.NAME)
     private val mStorageReference = FirebaseStorage.storageReference()
 
-    //TODO: Create and Update Product -> evaluate refactoring code repeated - Analyze lambda usage
+    //TODO: Melhorar a chamada da criação e update do produto, muito parecidos - Analisar o uso de Lambda
 
     fun getAllProducts(listener : FirebaseListener<List<ProductModel>>){
 
@@ -32,6 +32,32 @@ class ProductRepository(val context: Context) : BaseRepository() {
             }else{
                 listener.onFailure("Empty Table")
             }
+        }
+    }
+
+    fun create(product : ProductModel, listener: FirebaseListener<Boolean>){
+
+        if(product.imageUri != null){
+            var url = ""
+            val reference = mStorageReference?.child("${ProductConstants.FOLDER.PRODUCT_PATH}${product.name}")
+            var uploadTask = reference?.putFile(product.imageUri!!)
+            uploadTask?.continueWithTask {
+                if (!it.isSuccessful) {
+                    it.exception?.let {
+                        throw it!!
+                    }
+                }
+                reference?.downloadUrl
+            }?.addOnFailureListener {
+                listener.onFailure(it.message.toString())
+            }?.addOnSuccessListener {
+                url = it.toString()
+                val product = ProductModelRequest(String() ,product.name, product.price, url)
+                createProductOnFirestore(product, listener)
+            }
+        }else{
+            val product = ProductModelRequest(String() ,product.name, product.price, "")
+            createProductOnFirestore(product, listener)
         }
     }
 
@@ -52,42 +78,12 @@ class ProductRepository(val context: Context) : BaseRepository() {
                 listener.onFailure(it.message.toString())
             }?.addOnSuccessListener {
                 url = it.toString()
-                val request = ProductModelRequest(product.name, product.price, url)
+                val request = ProductModelRequest(product.id, product.name, product.price, url)
                 updateProductOnFirestore(product.id, request, listener)
             }
         }else{
-            val request = ProductModelRequest(product.name, product.price, "")
+            val request = ProductModelRequest(product.id, product.name, product.price, "")
             updateProductOnFirestore(product.id, request, listener)
-        }
-
-
-
-
-    }
-
-    fun create(product : ProductModel, listener: FirebaseListener<Boolean>){
-
-        if(product.imageUri != null){
-            var url = ""
-            val reference = mStorageReference?.child("${ProductConstants.FOLDER.PRODUCT_PATH}${product.name}")
-            var uploadTask = reference?.putFile(product.imageUri!!)
-            uploadTask?.continueWithTask {
-                if (!it.isSuccessful) {
-                    it.exception?.let {
-                        throw it!!
-                    }
-                }
-                reference?.downloadUrl
-            }?.addOnFailureListener {
-                listener.onFailure(it.message.toString())
-            }?.addOnSuccessListener {
-                url = it.toString()
-                val product = ProductModelRequest(product.name, product.price, url)
-                createProductOnFirestore(product, listener)
-            }
-        }else{
-            val product = ProductModelRequest(product.name, product.price, "")
-            createProductOnFirestore(product, listener)
         }
     }
 

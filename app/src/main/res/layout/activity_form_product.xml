@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="45dp"
-    tools:context=".view.activity.ProductFormActivity">
+    tools:context=".view.activity.FormProductActivity">
 
     <ImageView
         android:id="@+id/iv_product"

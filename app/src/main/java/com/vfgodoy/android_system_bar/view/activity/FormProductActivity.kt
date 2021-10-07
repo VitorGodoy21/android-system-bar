@@ -19,7 +19,7 @@ import com.vfgodoy.android_system_bar.service.model.ProductModel
 import com.vfgodoy.android_system_bar.util.Util
 import com.vfgodoy.android_system_bar.viewmodel.ProductViewModel
 
-class ProductFormActivity : AppCompatActivity(), View.OnClickListener {
+class FormProductActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mProductViewModel: ProductViewModel
     private lateinit var binding: ActivityFormProductBinding
@@ -27,8 +27,8 @@ class ProductFormActivity : AppCompatActivity(), View.OnClickListener {
     private var urlImage : String = ""
     private var mProductId = ""
 
-    //TODO: SHOW BACK BUTTON
-    //TODO: MASK TO PRICE INPUT
+    //TODO: MOSTRAR BOTÃO VOLTAR
+    //TODO: MASCARA NA INSERÇÃO DO PREÇO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,12 +45,11 @@ class ProductFormActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun handleSave(){
-
+        //TODO: BUG: APP ENVIA IMAGEM VAZIA PRO FIREBASE QUANDO ATUALIZO O PRODUTO SEM ALTERAR A IMAGEM
         val name = binding.etName.text.toString()
         val price = binding.etPrice.text.toString()
         val product = ProductModel(mProductId, name, price.toFloatOrNull(), uriImage, urlImage)
         mProductViewModel.save(product)
-
     }
 
     private fun setListeners(){

@@ -5,47 +5,88 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.databinding.FragmentOrdersBinding
+import com.vfgodoy.android_system_bar.service.constants.OrderConstants
+import com.vfgodoy.android_system_bar.service.listener.OrderListener
+import com.vfgodoy.android_system_bar.util.Util
 import com.vfgodoy.android_system_bar.view.activity.FloatingActionButtonController
-import com.vfgodoy.android_system_bar.view.activity.ProductFormActivity
-import com.vfgodoy.android_system_bar.viewmodel.OrdersViewModel
+import com.vfgodoy.android_system_bar.view.activity.OrderDetailsActivity
+import com.vfgodoy.android_system_bar.view.adapter.OrderAdapter
+import com.vfgodoy.android_system_bar.view.dialog.FormOrderDialog
+import com.vfgodoy.android_system_bar.viewmodel.OrderViewModel
 
 class OrdersFragment : BaseFragment() {
 
-    private lateinit var ordersViewModel: OrdersViewModel
+    private lateinit var mOrdersViewModel: OrderViewModel
     private var _binding: FragmentOrdersBinding? = null
 
     private val binding get() = _binding!!
+
+    private lateinit var mListener : OrderListener
+    private val mAdapter = OrderAdapter()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        ordersViewModel =
-                ViewModelProvider(this).get(OrdersViewModel::class.java)
+        mOrdersViewModel =
+                ViewModelProvider(this).get(OrderViewModel::class.java)
 
         _binding = FragmentOrdersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textOrders
-        ordersViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        root.findViewById<RecyclerView>(R.id.rv_orders).apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = mAdapter
+        }
+
+        mListener = object : OrderListener{
+            override fun onListClick(id: String) {
+                val intent = Intent(context, OrderDetailsActivity::class.java)
+                val bundle = Bundle()
+                bundle.putString(OrderConstants.BUNDLE.ORDERID, id)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
+        }
+
+        observer()
+        mOrdersViewModel.all()
+        mAdapter.attachListener(mListener)
 
         return root
     }
 
+    private fun observer(){
+
+        mOrdersViewModel.orders.observe(viewLifecycleOwner, {
+            if(it.isNotEmpty()){
+                mAdapter.updateList(it)
+            }
+        })
+
+        mOrdersViewModel.validation.observe(viewLifecycleOwner, {
+            if(!it.success()){
+                Util.makeToast(context, it.failure())
+            }
+        })
+
+    }
+
     override fun onResume() {
         super.onResume()
+
+        mAdapter.attachListener(mListener)
+        mOrdersViewModel.all()
         setFabImageResource(R.drawable.ic_fab_add)
         setFabVisibility(View.VISIBLE)
         setFabAction {
-            //NoAction
+            FormOrderDialog().show(parentFragmentManager, "FormOrderDialog")
         }
     }
 
