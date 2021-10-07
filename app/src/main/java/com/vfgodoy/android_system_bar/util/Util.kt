@@ -1,10 +1,12 @@
 package com.vfgodoy.android_system_bar.util
 
+import android.app.AlertDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.widget.Toast
+import com.vfgodoy.android_system_bar.R
 
 class Util {
     companion object{
@@ -33,6 +35,17 @@ class Util {
                 }
             }
             return false
+        }
+
+        fun confirmDialogAlert(context: Context, title : String, message : String, callback : () -> Unit ){
+            AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(R.string.yes) { dialog, which ->
+                    callback()
+                }
+                .setNeutralButton(R.string.no, null)
+                .show()
         }
 
     }

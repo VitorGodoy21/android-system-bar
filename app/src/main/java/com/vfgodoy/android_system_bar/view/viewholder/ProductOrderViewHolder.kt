@@ -1,5 +1,6 @@
 package com.vfgodoy.android_system_bar.view.viewholder
 
+import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.view.View
 import android.widget.*
@@ -13,6 +14,7 @@ import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.service.listener.ProductListener
 import com.vfgodoy.android_system_bar.service.listener.ProductOrderListener
 import com.vfgodoy.android_system_bar.service.model.OrderProductModel
+import com.vfgodoy.android_system_bar.util.Util
 
 class ProductOrderViewHolder (itemView: View, val listener: ProductOrderListener) : RecyclerView.ViewHolder(itemView) {
 
@@ -36,9 +38,16 @@ class ProductOrderViewHolder (itemView: View, val listener: ProductOrderListener
             var amount : Int = mEditTextAmount.text.toString().toInt()
             if(amount> 0){
                 amount--
-                mEditTextAmount.setText(amount.toString())
-                productOrderModel.amount = amount
-                listener.onAmountChange(productOrderModel)
+                if(amount == 0){
+                    Util.confirmDialogAlert(itemView.context, itemView.context.getString(R.string.Attention), itemView.context.getString(R.string.remove_product_from_order)) {
+                        productOrderModel.amount = amount
+                        listener.onAmountChange(productOrderModel)
+                    }
+                }else{
+                    mEditTextAmount.setText(amount.toString())
+                    productOrderModel.amount = amount
+                    listener.onAmountChange(productOrderModel)
+                }
             }
         }
 

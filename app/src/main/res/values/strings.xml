@@ -11,6 +11,10 @@
     <string name="error_generic">Ocorreu um erro inesperado. Verifique os dados e tente novamente.</string>
     <string name="error_no_internet_connection">Rede indisponível. Verifique se está conectado à rede de dados e tente novamente.</string>
 
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="Attention">Atenção</string>
+
     <!-- TODO: VIA RESOURCE NOS LAYOUTS-->
 
     <!--LOGIN-->
@@ -33,5 +37,6 @@
     <string name="error_missing_save_order_starter_values">"Dados da comanda obrigatórios. Preencha os dados e tente novamente.</string>
     <string name="order_starter_save_with_success">Comanda criada com sucesso!</string>
     <string name="search_product_hint">Pesquise o produto</string>
+    <string name="remove_product_from_order">Deseja realmente excluir o produto da sua comanda.</string>
 
 </resources>

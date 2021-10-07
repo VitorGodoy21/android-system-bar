@@ -3,6 +3,7 @@ package com.vfgodoy.android_system_bar.viewmodel
 import android.app.Application
 import android.content.Context
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.*
 import com.vfgodoy.android_system_bar.R
 import com.vfgodoy.android_system_bar.extension.toModel
@@ -192,7 +193,12 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
                 if(filteredProducts.isNotEmpty()){
                     productList = products.toMutableList()
                     productList.removeAll { it.product?.id == productOrderModel.product?.id }
-                    productList.add(filteredProducts[0])
+
+                    when(productOrderModel.amount){
+                        0 -> { Log.d("ORDER-PRODUCT", "REMOVE PRODUCT") }
+                        else -> {productList.add(filteredProducts[0])}
+                    }
+
                 }else{
                     productList = products.toMutableList()
                     productList.add(productOrderModel)

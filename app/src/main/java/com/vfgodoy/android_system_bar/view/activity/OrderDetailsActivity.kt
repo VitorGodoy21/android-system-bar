@@ -25,7 +25,7 @@ import com.vfgodoy.android_system_bar.viewmodel.ProductViewModel
 class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityOrderDetailsBinding
-    private var mOrderId = ""
+    private var mOrderId = String()
     private var mOrder : OrderModel? = null
 
     private lateinit var mOrderViewModel: OrderViewModel
@@ -55,7 +55,9 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
             override fun onAmountChange(productOrderModel: OrderProductModel) {
                 mOrderViewModel.onAmountChanged(productOrderModel, mOrder, productOrderModel.amount, object : FirebaseListener<OrderModel>{
                     override fun onSuccess(model: OrderModel) {
-                        Util.makeToast(applicationContext, "SUCESSO")
+                        model.products?.let { products ->
+                            mAdapter.updateList(products)
+                        }
                     }
 
                     override fun onFailure(str: String) {
