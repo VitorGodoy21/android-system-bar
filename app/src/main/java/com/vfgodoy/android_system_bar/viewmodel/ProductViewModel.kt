@@ -51,7 +51,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             return
         }
 
-        if(product.id.isNullOrEmpty()){
+        if(product.id.isEmpty()){
             mProductRepository.create(product, object : FirebaseListener<Boolean>{
                 override fun onSuccess(model: Boolean) {
                     mSaveResult.value = ValidationListener()
