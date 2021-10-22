@@ -85,6 +85,7 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 if(!it.products.isNullOrEmpty()){
                     mAdapter.updateList(it.products!!)
                 }
+                binding.pbLoadList.visibility = View.INVISIBLE
             }
         })
 
