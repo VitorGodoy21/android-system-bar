@@ -82,7 +82,7 @@ class ProductRepository(val context: Context) : BaseRepository() {
                 updateProductOnFirestore(product.id, request, listener)
             }
         }else{
-            val request = ProductModelRequest(product.id, product.name, product.price, "")
+            val request = ProductModelRequest(product.id, product.name, product.price, product.imageUrl)
             updateProductOnFirestore(product.id, request, listener)
         }
     }
