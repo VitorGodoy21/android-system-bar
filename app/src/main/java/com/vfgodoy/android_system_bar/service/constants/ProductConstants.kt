@@ -3,7 +3,8 @@ package com.vfgodoy.android_system_bar.service.constants
 class ProductConstants private constructor() {
 
     object TABLE {
-        const val NAME = "product"
+        const val PRODUCT = "product"
+        const val NAME = "name"
     }
 
     object FOLDER{

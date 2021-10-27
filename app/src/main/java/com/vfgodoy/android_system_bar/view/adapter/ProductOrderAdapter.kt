@@ -28,7 +28,7 @@ class ProductOrderAdapter : RecyclerView.Adapter<ProductOrderViewHolder>(){
     }
 
     fun updateList(list : List<OrderProductModel>){
-        mList = list
+        mList = list.sortedBy { it.product?.name }
         notifyDataSetChanged()
     }
 
