@@ -2,6 +2,7 @@ package com.vfgodoy.android_system_bar.service.repository
 
 import android.content.Context
 import com.vfgodoy.android_system_bar.R
+import com.vfgodoy.android_system_bar.service.constants.OrderConstants
 import com.vfgodoy.android_system_bar.service.constants.ProductConstants
 import com.vfgodoy.android_system_bar.service.listener.FirebaseListener
 import com.vfgodoy.android_system_bar.service.model.ProductModel
@@ -12,7 +13,7 @@ import com.vfgodoy.android_system_bar.util.Util
 
 class ProductRepository(val context: Context) : BaseRepository() {
 
-    private val mCollectionReference = FirestoreDatabaseClient.createFirebaseReference(ProductConstants.TABLE.NAME)
+    private val mCollectionReference = FirestoreDatabaseClient.createFirebaseReference(ProductConstants.TABLE.PRODUCT)
     private val mStorageReference = FirebaseStorage.storageReference()
 
     //TODO: Melhorar a chamada da criação e update do produto, muito parecidos - Analisar o uso de Lambda
@@ -24,7 +25,7 @@ class ProductRepository(val context: Context) : BaseRepository() {
             return
         }
 
-        mCollectionReference!!.addSnapshotListener{ documents, error ->
+        mCollectionReference!!.orderBy(ProductConstants.TABLE.NAME).addSnapshotListener{ documents, error ->
             if(error != null){
                listener.onFailure(error.message.toString())
             }else if(documents != null){

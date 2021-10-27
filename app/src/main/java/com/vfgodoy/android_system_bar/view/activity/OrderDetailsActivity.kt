@@ -108,6 +108,12 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 })
             }
         })
+
+        mOrderViewModel.totalPrice.observe(this, {
+            it?.let {
+                binding.tvOrderTotal.text = it.toString().toMoneyFormat()
+            }
+        })
     }
 
     private fun setListeners(){

@@ -10,6 +10,6 @@ class OrderModel (
     val description : String? = null,
     val date : Timestamp? = null,
     val number : Int? = null,
-    val total : Float? = null,
+    var total : Float? = null,
     var products : List<OrderProductModel>? = null
 )

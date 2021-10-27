@@ -36,6 +36,9 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     private val mLoadOrder = MutableLiveData<OrderModel?>()
     var loadOrder: LiveData<OrderModel?> = mLoadOrder
 
+    private val mTotalPrice = MutableLiveData<Float>()
+    var totalPrice : LiveData<Float> = mTotalPrice
+
     var finish = MutableLiveData<List<OrderProductModel>>()
     var finishObserver : Observer<List<OrderProductModel>>? = null
 
@@ -178,11 +181,13 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
             updateProductOrder(orderProductModel, order)?.apply {
                 mOrderRepository.onChangeProduct(this, listener )
             }
+
+
         }
 
     }
 
-    fun updateProductOrder(productOrderModel : OrderProductModel, order : OrderModel?) : OrderModel?{
+    private fun updateProductOrder(productOrderModel : OrderProductModel, order : OrderModel?) : OrderModel?{
 
         order?.let{
             var orderModel = it
@@ -205,8 +210,9 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
                 }
 
             }
-
             orderModel.products = productList
+            val totalPrice = calculateTotalPriceOrder(orderModel)
+            orderModel.total = totalPrice
             return orderModel
         }
 
@@ -214,4 +220,17 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
+    fun calculateTotalPriceOrder(orderModel : OrderModel) : Float{
+        var totalPrice = 0f
+
+        orderModel.products?.forEach { product ->
+            product.product?.let {
+                totalPrice += (it.price?:0f) * product.amount
+            }
+        }
+
+        mTotalPrice.value = totalPrice
+        return totalPrice
+
+    }
 }
